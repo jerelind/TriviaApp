@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c)
 }
 
 code {
@@ -18,7 +19,7 @@ input {
 }
 
 #triviaHeader {
-  color: rgb(185, 148, 123);
+  color: rgb(129, 129, 126);
   font-family: Anton;
   font-size: 70px;
   text-align: center;
@@ -51,7 +52,7 @@ input {
 
 p {
   font-style: italic;
-  font-family: Roboto;
+  font-family: Anton;
   font-size: 25px;
 }
 
@@ -79,4 +80,8 @@ label {
 
 #answerButton {
   width: 300px;
+}
+
+#scoreTable {
+  margin-top: 15px;
 }

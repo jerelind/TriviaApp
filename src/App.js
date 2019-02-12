@@ -1,8 +1,9 @@
 import React from 'react'
 import HomeScreen from './components/HomeScreen'
 import QuestionScreen from './components/QuestionScreen'
-import {Icon, Button, Container} from 'semantic-ui-react'
+import {Icon} from 'semantic-ui-react'
 import axios from 'axios'
+import EndScreen from './components/EndScreen'
 
 class App extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class App extends React.Component {
       gameOn: false,
       question: null,
       questionOptions: null,
+      previousCorrectAnswer: null,
       answer: null,
       category: null,
       answerRight: null,
@@ -38,12 +40,12 @@ class App extends React.Component {
     axios.get(`https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple&token=${this.state.sessionToken}`)
     .then((response) => {
       this.setState({
-        question: response.data.results[0].question.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi/g, "3.14").replace(/&amp;/g, "&"),
-        answer: response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi/g, "3.14").replace(/&amp;/g, "&"),
+        question: response.data.results[0].question.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö"),
+        answer: response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö"),
         category: response.data.results[0].category,
-        questionOptions: [response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi/g, "3.14").replace(/&amp;/g, "&"), response.data.results[0].incorrect_answers[0].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi/g, "3.14").replace(/&amp;/g, "&"), response.data.results[0].incorrect_answers[1].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi/g, "3.14").replace(/&amp;/g, "&"), response.data.results[0].incorrect_answers[2].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi/g, "3.14").replace(/&amp;/g, "&")],
-        gameOn: true,
-        answerRight: null
+        questionOptions: [response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö"), response.data.results[0].incorrect_answers[0].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö"), response.data.results[0].incorrect_answers[1].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö"), response.data.results[0].incorrect_answers[2].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö")],
+        correctAnswer: response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö"),
+        gameOn: true
       })
     })
     .catch((error) => {
@@ -54,6 +56,8 @@ class App extends React.Component {
   reset = () => {
     this.setState({
       gameOn: false,
+      answerRight: null,
+      previousCorrectAnswer: "",
       rightAnswers: 0,
       wrongAnswers: 0
     })
@@ -65,17 +69,14 @@ class App extends React.Component {
         answerRight: true,
         rightAnswers: this.state.rightAnswers + 1
       })
-      setTimeout(() => {
-        this.newQuestion()
-      }, 2000)
+      this.newQuestion()
     } else {
       this.setState({
         answerRight: false,
-        wrongAnswers: this.state.wrongAnswers + 1
+        wrongAnswers: this.state.wrongAnswers + 1,
+        previousCorrectAnswer: this.state.answer
       })
-      setTimeout(() => {
-        this.newQuestion()
-      }, 2000)
+      this.newQuestion()
     }
   }
 
@@ -84,23 +85,13 @@ class App extends React.Component {
 
     if(this.state.rightAnswers === 10) {
       return(
-        <Container style={alignCenter}>
-          <div id="questionHeader">
-            Perfect!
-          </div>
-          <Button color="blue" style={playAgainButton} onClick={this.reset}>Play again</Button>
-        </Container>
+        <EndScreen reset={this.reset} scoreRight={this.state.rightAnswers} scoreWrong={this.state.wrongAnswers} endText="Perfect!"/>
       )
     }
 
     if(this.state.wrongAnswers === 10) {
       return(
-        <Container style={alignCenter}>
-          <div id="questionHeader">
-            Too many wrong answers.
-          </div>
-          <Button color="blue" style={playAgainButton} onClick={this.reset}>Play again</Button>
-        </Container>
+        <EndScreen reset={this.reset} scoreRight={this.state.rightAnswers} scoreWrong={this.state.wrongAnswers} endText="Too many wrong answers."/>
       )
     }
 
@@ -149,19 +140,11 @@ class App extends React.Component {
         checkAnswer={this.check}
         scoreRight={this.state.rightAnswers}
         scoreWrong={this.state.wrongAnswers}
+        previousCorrectAnswer={this.state.previousCorrectAnswer}
         />
       )
     }
   }
-}
-
-const alignCenter = {
-  textAlign: "center",
-  marginTop: "300px"
-}
-
-const playAgainButton = {
-  marginTop: "20px"
 }
 
 export default App

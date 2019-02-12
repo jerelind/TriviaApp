@@ -2,21 +2,21 @@ import React from 'react'
 import {Container, Button, Icon} from 'semantic-ui-react'
 import Notification from '../components/Notification'
 
-const QuestionScreen = ({question, reset, categoryName, questionOptions, answerRight, checkAnswer, scoreRight, scoreWrong}) => {
+const QuestionScreen = ({question, reset, categoryName, questionOptions, answerRight, checkAnswer, scoreRight, scoreWrong, previousCorrectAnswer}) => {
 
   //shuffle questionOptions
   for (let i = questionOptions.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    let temp = questionOptions[i];
-    questionOptions[i] = questionOptions[j];
-    questionOptions[j] = temp;
+    let j = Math.floor(Math.random() * (i + 1))
+    let temp = questionOptions[i]
+    questionOptions[i] = questionOptions[j]
+    questionOptions[j] = temp
   }
 
   return(
       <Container style={alignCenter}>
       <div>
       {answerRight === true ? <Notification notification={<Icon size="huge" color="green" name="check"/>}/> : null}
-      {answerRight === false ? <Notification notification={<Icon size="huge" color="red" name="remove"/>}/> : null}
+      {answerRight === false ? <Notification notification={<Icon size="huge" color="red" name="remove"/>} text={`Correct answer was ${previousCorrectAnswer}`}/> : null}
       </div>
       <div id="questionScreen">
         <div>{categoryName}</div>

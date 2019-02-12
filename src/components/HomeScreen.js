@@ -25,7 +25,8 @@ const HomeScreen = ({newQuestion}) => {
 }
 
 const homeScreenAlign = {
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: '30px'
 }
 
 const genQButtonStyle = {
