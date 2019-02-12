@@ -13,7 +13,7 @@ const HomeScreen = ({newQuestion}) => {
                 <p>The game will generate a random question for you when you press <i style={playTextStyle}>Play</i>.</p>
                 <p>You will be shown four (4) alternatives to choose from.</p>
                 <p>If you answer right ten (10) times, you will win.</p>
-                <p>If you answer wrong five (5) times, the game will be over.</p>
+                <p>If you answer wrong ten (10) times, the game will be over.</p>
                 </Togglable>
                 <br/>
                 <div style={genQButtonStyle}>

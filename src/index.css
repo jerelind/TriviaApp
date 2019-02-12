@@ -61,13 +61,16 @@ label {
 }
 
 #score {
-  padding: 30px;
   color: rgb(0, 88, 0);
+  margin-bottom: -15px;
+}
+
+#scoreWrong {
+  color: rgb(128, 38, 23);
 }
 
 #backToHomepage {
   padding: 10px;
-  margin-top: 50px;
 }
 
 #answerButtons {
