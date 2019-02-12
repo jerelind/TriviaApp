@@ -1,36 +1,40 @@
 import React from 'react'
-import {Checkbox, Icon} from 'semantic-ui-react'
+import {Container, Button} from 'semantic-ui-react'
+import Title from '../components/Title'
+import Togglable from '../components/Togglable'
 
-const HomeScreen = ({handleAll, handleMaantiede, handleHistoria, handleLuonto, handleKulttuuri, handleUrheilu, handleViihde}) => {
+const HomeScreen = ({newQuestion}) => {
     return(
-    <div className="App">
-        <div id="checkboxes">
-            <Checkbox style={checkboxStyle} label="Kaikki" onChange={handleAll} defaultChecked toggle/><Icon style={iconStyle} color="yellow" name="huge smile outline"/><br />
-            <Checkbox style={checkboxStyle} label="Historia" onChange={handleHistoria} toggle/><Icon style={iconStyle} color="yellow" name="huge hourglass end"/><br />
-            <Checkbox style={checkboxStyle} label="Luonto ja tiede" onChange={handleLuonto} toggle/><Icon style={iconStyle} color="green" name="huge tree"/><br />
-            <Checkbox style={checkboxStyle} label="Kulttuuri" onChange={handleKulttuuri} toggle/><Icon style={iconStyle} color="brown" name="huge book"/><br />
-            <Checkbox style={checkboxStyle} label="Maantiede" onChange={handleMaantiede} toggle/><Icon style={iconStyle} color="blue" name="huge world"/><br />
-            <Checkbox style={checkboxStyle} label="Urheilu ja vapaa-aika" onChange={handleUrheilu} toggle/><Icon style={iconStyle} color="orange" name="huge soccer"/><br />
-            <Checkbox style={checkboxStyle} label="Viihde" onChange={handleViihde} toggle/><Icon style={iconStyle} color="pink" name="huge music"/><br />
-        </div>
-    </div>
-    )
+        <Container>
+            <Title/>
+            <div style={homeScreenAlign}>
+                <p>Welcome to play a trivia game.</p>
+                <Togglable buttonLabel="Show instructions">
+                <p>The game will generate a random question for you when you press <i style={playTextStyle}>Play</i>.</p>
+                <p>You will be shown four (4) alternatives to choose from.</p>
+                <p>If you answer right ten (10) times, you will win.</p>
+                <p>If you answer wrong five (5) times, the game will be over.</p>
+                </Togglable>
+                <br/>
+                <div style={genQButtonStyle}>
+                <Button size="massive" color="green" onClick={newQuestion}>Play Game</Button>
+                </div>
+            </div>
+        </Container>
+      )
 }
 
-const checkboxStyle = {
-    fontSize: "25px",
-    padding: "10px",
-    border: 'solid 1px',
-    width: '330px',
-    borderRadius: '5px',
-    margin: '3px',
-    textAlign: 'center',
-    height: '50px',
-    verticalAlign: 'middle'
+const homeScreenAlign = {
+    textAlign: 'center'
 }
 
-const iconStyle = {
-    marginBottom: "5px"
+const genQButtonStyle = {
+    textAlign: "center",
 }
+
+const playTextStyle = {
+    color: "green"
+}
+
 
 export default HomeScreen

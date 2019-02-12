@@ -17,12 +17,6 @@ input {
   display: block;
 }
 
-#errorText {
-  color: red;
-  font-family: Roboto;
-  margin-bottom: 30px;
-}
-
 #triviaHeader {
   color: rgb(185, 148, 123);
   font-family: Anton;
@@ -66,10 +60,20 @@ label {
   padding: 10px;
 }
 
-#checkboxes {
-  margin-bottom: 50px;
+#score {
+  padding: 30px;
+  color: rgb(0, 88, 0);
 }
 
-.valitseAihe {
-  color: red;
+#backToHomepage {
+  padding: 10px;
+  margin-top: 50px;
+}
+
+#answerButtons {
+  padding: 5px;
+}
+
+#answerButton {
+  width: 300px;
 }
