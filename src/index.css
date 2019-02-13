@@ -41,6 +41,7 @@ code {
   font-style: italic;
   font-size: 20px;
   animation: questionHeader 4s;
+  margin-top: 10px;
 }
 
 #vastausHeader {
@@ -54,7 +55,7 @@ code {
 p {
   font-style: italic;
   font-family: Anton;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 label {
@@ -91,5 +92,5 @@ label {
 }
 
 #scoreTable {
-  margin-top: 15px;
+  margin-bottom: 5px;
 }

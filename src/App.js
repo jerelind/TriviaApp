@@ -85,13 +85,27 @@ class App extends React.Component {
 
     if(this.state.rightAnswers === 10) {
       return(
-        <EndScreen reset={this.reset} scoreRight={this.state.rightAnswers} scoreWrong={this.state.wrongAnswers} endText="Perfect!"/>
+        <EndScreen 
+        reset={this.reset} 
+        scoreRight={this.state.rightAnswers} 
+        scoreWrong={this.state.wrongAnswers} 
+        endText="Perfect!"
+        iconColor="yellow"
+        iconName="trophy"
+        />
       )
     }
 
     if(this.state.wrongAnswers === 10) {
       return(
-        <EndScreen reset={this.reset} scoreRight={this.state.rightAnswers} scoreWrong={this.state.wrongAnswers} endText="Too many wrong answers."/>
+        <EndScreen 
+        reset={this.reset} 
+        scoreRight={this.state.rightAnswers} 
+        scoreWrong={this.state.wrongAnswers} 
+        endText="Too many wrong answers."
+        iconColor="black"
+        iconName="thumbs down"
+        />
       )
     }
 

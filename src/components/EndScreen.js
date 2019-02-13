@@ -1,10 +1,11 @@
 import React from 'react'
-import {Container, Button} from 'semantic-ui-react'
+import {Container, Button, Icon} from 'semantic-ui-react'
 import Togglable from '../components/Togglable'
 
-const EndScreen = ({reset, endText, scoreRight, scoreWrong}) => {
+const EndScreen = ({reset, endText, scoreRight, scoreWrong, iconColor, iconName}) => {
     return(
     <Container style={alignCenter}>
+        <Icon size="huge" color={iconColor} name={iconName}/>
         <div id="questionHeader">
         {endText}
         </div>

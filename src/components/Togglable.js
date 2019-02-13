@@ -23,7 +23,7 @@ class Togglable extends React.Component {
             <Button style={genQButtonStyle} size="big" color="blue" onClick={this.toggleVisibility}>{this.props.buttonLabel}</Button>
           </div>
           <div style={showWhenVisible}>
-            {this.props.children}<br/>
+            {this.props.children}
             <Button style={genQButtonStyle} size="big" color="red" onClick={this.toggleVisibility}>Hide</Button>
           </div>
         </div>
@@ -34,7 +34,8 @@ class Togglable extends React.Component {
   const genQButtonStyle = {
     boxShadow: "1px 1px black",
     textAlign: "center",
-    fontFamily: "Anton"
+    fontFamily: "Anton",
+    marginBottom: "10px"
 }
 
   export default Togglable

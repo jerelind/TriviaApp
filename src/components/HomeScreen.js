@@ -15,7 +15,6 @@ const HomeScreen = ({newQuestion}) => {
                 <p>If you answer right ten (10) times, you will win.</p>
                 <p>If you answer wrong ten (10) times, the game will be over.</p>
                 </Togglable>
-                <br/>
                 <div>
                 <Button style={genQButtonStyle} size="massive" color="green" onClick={newQuestion}>Play</Button>
                 </div>
