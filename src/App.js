@@ -40,11 +40,11 @@ class App extends React.Component {
     axios.get(`https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple&token=${this.state.sessionToken}`)
     .then((response) => {
       this.setState({
-        question: response.data.results[0].question.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö"),
-        answer: response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö"),
+        question: response.data.results[0].question.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é"),
+        answer: response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é"),
         category: response.data.results[0].category,
-        questionOptions: [response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö"), response.data.results[0].incorrect_answers[0].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö"), response.data.results[0].incorrect_answers[1].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö"), response.data.results[0].incorrect_answers[2].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö")],
-        correctAnswer: response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö"),
+        questionOptions: [response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é"), response.data.results[0].incorrect_answers[0].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é"), response.data.results[0].incorrect_answers[1].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é"), response.data.results[0].incorrect_answers[2].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é")],
+        correctAnswer: response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é"),
         gameOn: true
       })
     })
