@@ -119,7 +119,16 @@ class App extends React.Component {
         case this.state.category.startsWith("Science") || this.state.category.startsWith("Animals"):
           categoryName = <Icon size="huge" color="green" name="tree"/>
           break;
-        case this.state.category.startsWith("Art") || this.state.category.startsWith("Mythology") || this.state.category.startsWith("Politics") || this.state.category.startsWith("Entertainment: Books"):
+        case this.state.category.startsWith("Entertainment: Video Games"):
+          categoryName = <Icon size="huge" color="purple" name="gamepad"/>
+          break;
+        case this.state.category.startsWith("Entertainment: Board Games"):
+          categoryName = <Icon size="huge" color="black" name="chess"/>
+          break;
+        case this.state.category.startsWith("Entertainment: Television"):
+          categoryName = <Icon size="huge" color="pink" name="tv"/>
+          break;
+        case this.state.category.startsWith("Art") || this.state.category.startsWith("Mythology") || this.state.category.startsWith("Politics") || this.state.category.startsWith("Entertainment: Books") || this.state.category.startsWith("Entertainment: Comics") || this.state.category.startsWith("Entertainment: Japanese Anime & Manga"):
           categoryName = <Icon size="huge" color="brown" name="book"/>
           break;
         case this.state.category.startsWith("Sports") || this.state.category.startsWith("Vehicles"):
