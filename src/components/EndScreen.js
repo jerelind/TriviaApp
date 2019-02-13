@@ -1,5 +1,6 @@
 import React from 'react'
 import {Container, Button} from 'semantic-ui-react'
+import Togglable from '../components/Togglable'
 
 const EndScreen = ({reset, endText, scoreRight, scoreWrong}) => {
     return(
@@ -7,12 +8,14 @@ const EndScreen = ({reset, endText, scoreRight, scoreWrong}) => {
         <div id="questionHeader">
         {endText}
         </div>
-        <Button color="blue" style={playAgainButton} onClick={reset}>Play again</Button>
+        <Button color="green" size="massive" style={genQButtonStyle} onClick={reset}>Play again</Button>
+        <Togglable buttonLabel="Show score">
         <div id="scoreTable">
             <p>Your score:</p>
             <p>Right answers: {scoreRight}</p>
             <p>Wrong answers: {scoreWrong}</p>
         </div>
+        </Togglable>
     </Container>
     )
 }
@@ -21,9 +24,12 @@ export default EndScreen
 
 const alignCenter = {
     textAlign: "center",
-    marginTop: "300px"
+    marginTop: "250px"
 }
 
-const playAgainButton = {
-    marginTop: "20px"
+const genQButtonStyle = {
+    margin: "20px",
+    boxShadow: "1px 1px black",
+    textAlign: "center",
+    fontFamily: "Anton"
 }

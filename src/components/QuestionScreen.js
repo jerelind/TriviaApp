@@ -15,15 +15,17 @@ const QuestionScreen = ({question, reset, categoryName, questionOptions, answerR
   return(
       <Container style={alignCenter}>
       <div>
-      {answerRight === true ? <Notification notification={<Icon size="huge" color="green" name="check"/>}/> : null}
-      {answerRight === false ? <Notification notification={<Icon size="huge" color="red" name="remove"/>} text={`Correct answer was ${previousCorrectAnswer}`}/> : null}
+      {answerRight === true ? <Notification notification={<Icon size="big" color="green" name="check"/>}/> : null}
+      {answerRight === false ? <Notification notification={<Icon size="big" color="red" name="remove"/>} text={`Correct answer was "${previousCorrectAnswer}"`}/> : null}
       </div>
       <div id="questionScreen">
         <div>{categoryName}</div>
         <h1 id="questionHeader">{question}</h1>
-        {questionOptions.map(option => <div key={option} id="answerButtons"><Button id="answerButton" size="large" color="brown" value={option} onClick={checkAnswer}>{option}</Button></div>)}<br/>
+        <div id="answerButtons">
+        {questionOptions.map(option => <Button key={option} id="answerButton" color="brown" value={option} onClick={checkAnswer}>{option}</Button>)}
+        </div>
         <div id="backToHomepage">
-        <Button color="blue" size="medium" onClick={reset}>Back to homepage</Button>
+        <Button color="blue" size="medium" onClick={reset}>Reset</Button>
         <h2 id="score">Right answers: {scoreRight}</h2>
         <h2 id="scoreWrong">Wrong answers: {scoreWrong}</h2>
         </div>

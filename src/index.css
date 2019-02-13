@@ -14,15 +14,16 @@ code {
     monospace;
 }
 
-input {
-  display: block;
-}
-
 #triviaHeader {
-  color: rgb(129, 129, 126);
-  font-family: Anton;
+  color: rgb(236, 160, 17);
+  font-family: "Hanalei Fill";
   font-size: 70px;
   text-align: center;
+  text-shadow: 2px 1px black;
+}
+
+#welcome {
+  font-family: "Hanalei FIll"
 }
 
 @keyframes questionHeader {
@@ -38,7 +39,7 @@ input {
 #questionHeader {
   font-family: Roboto;
   font-style: italic;
-  font-size: 30px;
+  font-size: 20px;
   animation: questionHeader 4s;
 }
 
@@ -47,7 +48,7 @@ input {
 }
 
 #questionScreen {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 p {
@@ -75,11 +76,18 @@ label {
 }
 
 #answerButtons {
-  padding: 5px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 #answerButton {
-  width: 300px;
+  width: 150px;
+  height: 80px;
+  box-shadow: 1px 1px black;
+  margin: 5px;
 }
 
 #scoreTable {

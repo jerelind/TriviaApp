@@ -8,7 +8,7 @@ const HomeScreen = ({newQuestion}) => {
         <Container>
             <Title/>
             <div style={homeScreenAlign}>
-                <p>Welcome to play a trivia game.</p>
+                <p id="welcome">Welcome to play a trivia game.</p>
                 <Togglable buttonLabel="Show instructions">
                 <p>The game will generate a random question for you when you press <i style={playTextStyle}>Play</i>.</p>
                 <p>You will be shown four (4) alternatives to choose from.</p>
@@ -16,8 +16,8 @@ const HomeScreen = ({newQuestion}) => {
                 <p>If you answer wrong ten (10) times, the game will be over.</p>
                 </Togglable>
                 <br/>
-                <div style={genQButtonStyle}>
-                <Button size="massive" color="green" onClick={newQuestion}>Play Game</Button>
+                <div>
+                <Button style={genQButtonStyle} size="massive" color="green" onClick={newQuestion}>Play</Button>
                 </div>
             </div>
         </Container>
@@ -30,7 +30,9 @@ const homeScreenAlign = {
 }
 
 const genQButtonStyle = {
+    boxShadow: "1px 1px black",
     textAlign: "center",
+    fontFamily: "Anton"
 }
 
 const playTextStyle = {
