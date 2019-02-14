@@ -79,7 +79,8 @@ class App extends React.Component {
       previousCorrectAnswer: "",
       rightAnswers: 0,
       wrongAnswers: 0,
-      answerCounter: 0
+      answerCounter: 0,
+      points: 0
     })
   }
 
@@ -156,7 +157,49 @@ class App extends React.Component {
         scoreWrong={this.state.wrongAnswers} 
         score={this.state.points}
         endText="GG WP!"
-        iconColor="yellow"
+        iconColor="#6B4C24"
+        iconName="trophy"
+        />
+      )
+    }
+
+    if(this.state.answerCounter === 10 && this.state.wrongAnswers === 0) {
+      return(
+        <EndScreen 
+        reset={this.reset} 
+        scoreRight={this.state.rightAnswers} 
+        scoreWrong={this.state.wrongAnswers} 
+        score={this.state.points}
+        endText="YOU ARE THE LEGENDARY GRANDMASTER"
+        iconColor="#DFB960"
+        iconName="trophy"
+        />
+      )
+    }
+
+    if(this.state.answerCounter === 10 && this.state.rightAnswers > this.state.wrongAnswers && this.state.points > 10 && this.state.rightAnswers !== 10) {
+      return(
+        <EndScreen 
+        reset={this.reset} 
+        scoreRight={this.state.rightAnswers} 
+        scoreWrong={this.state.wrongAnswers} 
+        score={this.state.points}
+        endText="You are a great mind!"
+        iconColor="#BCBABD"
+        iconName="trophy"
+        />
+      )
+    }
+
+    if(this.state.answerCounter === 10 && this.state.rightAnswers > this.state.wrongAnswers && this.state.points > 20 && this.state.rightanswers !== 10) {
+      return(
+        <EndScreen 
+        reset={this.reset} 
+        scoreRight={this.state.rightAnswers} 
+        scoreWrong={this.state.wrongAnswers} 
+        score={this.state.points}
+        endText="200IQ gameplay!"
+        iconColor="#479561"
         iconName="trophy"
         />
       )
