@@ -15,7 +15,10 @@ class App extends React.Component {
       previousCorrectAnswer: null,
       answer: null,
       category: null,
+      difficulty: null,
       answerRight: null,
+      points: 0,
+      answerCounter: 0,
       rightAnswers: 0,
       wrongAnswers: 0,
       sessionToken: null
@@ -37,7 +40,7 @@ class App extends React.Component {
   
   // haetaan kysymys open trivia DB -APIsta ja asetetaan arvot stateen
   newQuestion = () => {
-    axios.get(`https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple&token=${this.state.sessionToken}`)
+    axios.get(`https://opentdb.com/api.php?amount=1&type=multiple&token=${this.state.sessionToken}`)
     .then((response) => {
       
       let question = response.data.results[0].question.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é")
@@ -45,6 +48,7 @@ class App extends React.Component {
       let category = response.data.results[0].category
       let questionOptions = [response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é"), response.data.results[0].incorrect_answers[0].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é"), response.data.results[0].incorrect_answers[1].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é"), response.data.results[0].incorrect_answers[2].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é")]
       let correctAnswer = response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é")
+      let difficulty = response.data.results[0].difficulty
 
       //shuffle questionOptions
       for (let i = questionOptions.length - 1; i > 0; i--) {
@@ -58,6 +62,7 @@ class App extends React.Component {
         answer: answer,
         category: category,
         questionOptions: questionOptions,
+        difficulty: difficulty,
         correctAnswer: correctAnswer,
         gameOn: true
       })
@@ -73,23 +78,69 @@ class App extends React.Component {
       answerRight: null,
       previousCorrectAnswer: "",
       rightAnswers: 0,
-      wrongAnswers: 0
+      wrongAnswers: 0,
+      answerCounter: 0
     })
   }
 
   check = (event) => {
     if(this.state.answer === event.target.value) {
-      this.setState({
-        answerRight: true,
-        rightAnswers: this.state.rightAnswers + 1
-      })
+      switch(this.state.difficulty) {
+        case "easy":
+        this.setState({
+          answerRight: true,
+          rightAnswers: this.state.rightAnswers + 1,
+          points: this.state.points + 1,
+          answerCounter: this.state.answerCounter + 1
+        })
+        break;
+        case "medium":
+        this.setState({
+          answerRight: true,
+          rightAnswers: this.state.rightAnswers + 1,
+          points: this.state.points + 3,
+          answerCounter: this.state.answerCounter + 1
+        })
+        break;
+        case "hard":
+        this.setState({
+          answerRight: true,
+          rightAnswers: this.state.rightAnswers + 1,
+          points: this.state.points + 5,
+          answerCounter: this.state.answerCounter + 1
+        })
+        break;
+      }
       this.newQuestion()
     } else {
-      this.setState({
-        answerRight: false,
-        wrongAnswers: this.state.wrongAnswers + 1,
-        previousCorrectAnswer: this.state.answer
-      })
+      switch(this.state.difficulty) {
+        case "easy":
+        this.setState({
+          answerRight: false,
+          previousCorrectAnswer: this.state.answer,
+          wrongAnswers: this.state.wrongAnswers + 1,
+          points: this.state.points - 2,
+          answerCounter: this.state.answerCounter + 1
+        })
+        break;
+        case "medium":
+        this.setState({
+          answerRight: false,
+          previousCorrectAnswer: this.state.answer,
+          wrongAnswers: this.state.wrongAnswers + 1,
+          points: this.state.points - 1,
+          answerCounter: this.state.answerCounter + 1
+        })
+        break;
+        case "hard":
+        this.setState({
+          answerRight: false,
+          previousCorrectAnswer: this.state.answer,
+          wrongAnswers: this.state.wrongAnswers + 1,
+          answerCounter: this.state.answerCounter + 1
+        })
+        break;
+      }
       this.newQuestion()
     }
   }
@@ -97,26 +148,28 @@ class App extends React.Component {
   // ehdollinen renderöinti 
   render() {
 
-    if(this.state.rightAnswers === 10) {
+    if(this.state.answerCounter === 10 && this.state.rightAnswers > this.state.wrongAnswers) {
       return(
         <EndScreen 
         reset={this.reset} 
         scoreRight={this.state.rightAnswers} 
         scoreWrong={this.state.wrongAnswers} 
-        endText="Perfect!"
+        score={this.state.points}
+        endText="GG WP!"
         iconColor="yellow"
         iconName="trophy"
         />
       )
     }
 
-    if(this.state.wrongAnswers === 10) {
+    if(this.state.answerCounter === 10 && this.state.wrongAnswers > this.state.rightAnswers) {
       return(
         <EndScreen 
         reset={this.reset} 
         scoreRight={this.state.rightAnswers} 
-        scoreWrong={this.state.wrongAnswers} 
-        endText="Too many wrong answers."
+        scoreWrong={this.state.wrongAnswers}
+        score={this.state.points}
+        endText="You had more wrong than right answers."
         iconColor="black"
         iconName="thumbs down"
         />
@@ -151,7 +204,7 @@ class App extends React.Component {
           categoryName = <Icon size="huge" color="purple" name="gamepad"/>
           break;
         case this.state.category.startsWith("Entertainment: Board Games"):
-          categoryName = <Icon size="huge" color="black" name="chess"/>
+          categoryName = <Icon size="huge" color="black" name="chess board"/>
           break;
         case this.state.category.startsWith("Entertainment: Television"):
           categoryName = <Icon size="huge" color="pink" name="tv"/>
@@ -178,6 +231,8 @@ class App extends React.Component {
         scoreRight={this.state.rightAnswers}
         scoreWrong={this.state.wrongAnswers}
         previousCorrectAnswer={this.state.previousCorrectAnswer}
+        difficulty={this.state.difficulty}
+        score={this.state.points}
         />
       )
     }

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Button} from 'semantic-ui-react'
+import {Container, Button, Table} from 'semantic-ui-react'
 import Title from '../components/Title'
 import Togglable from '../components/Togglable'
 
@@ -8,12 +8,28 @@ const HomeScreen = ({newQuestion}) => {
         <Container>
             <Title/>
             <div style={homeScreenAlign}>
-                <p id="welcome">Welcome to play a trivia game.</p>
-                <Togglable buttonLabel="Show instructions">
-                <p>The game will generate a random question for you when you press <i style={playTextStyle}>Play</i>.</p>
-                <p>You will be shown four (4) alternatives to choose from.</p>
-                <p>If you answer right ten (10) times, you will win.</p>
-                <p>If you answer wrong ten (10) times, the game will be over.</p>
+                <p id="welcome">Welcome to 10 question Trivialz.</p>
+                <Togglable buttonLabel="Instructions">
+                <p>Question difficulties & points</p>
+                <Table inverted celled style={tableStyle}>
+                <Table.Body>
+                    <Table.Row>
+                        <Table.Cell><strong>Easy</strong></Table.Cell>
+                        <Table.Cell>Right: +1</Table.Cell>
+                        <Table.Cell>Wrong: -2</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell><strong>Medium</strong></Table.Cell>
+                        <Table.Cell>Right: +3</Table.Cell>
+                        <Table.Cell>Wrong: -1</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell><strong>Hard</strong></Table.Cell>
+                        <Table.Cell>Right: +5</Table.Cell>
+                        <Table.Cell>Wrong: 0</Table.Cell>
+                    </Table.Row>
+                </Table.Body>
+                </Table>
                 </Togglable>
                 <div>
                 <Button style={genQButtonStyle} size="massive" color="green" onClick={newQuestion}>Play</Button>
@@ -34,8 +50,11 @@ const genQButtonStyle = {
     fontFamily: "Anton"
 }
 
-const playTextStyle = {
-    color: "green"
+const tableStyle = {
+    width: "50%",
+    textAlign: "center",
+    marginLeft: "auto",
+    marginRight: "auto"
 }
 
 
