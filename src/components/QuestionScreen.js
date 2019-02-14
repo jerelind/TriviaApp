@@ -2,15 +2,17 @@ import React from 'react'
 import {Container, Button, Icon} from 'semantic-ui-react'
 import Notification from '../components/Notification'
 
-const QuestionScreen = ({question, reset, categoryName, questionOptions, answerRight, checkAnswer, scoreRight, scoreWrong, previousCorrectAnswer}) => {
-
-  //shuffle questionOptions
-  for (let i = questionOptions.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1))
-    let temp = questionOptions[i]
-    questionOptions[i] = questionOptions[j]
-    questionOptions[j] = temp
-  }
+const QuestionScreen = ({
+  question, 
+  reset, 
+  categoryName, 
+  questionOptions, 
+  answerRight, 
+  checkAnswer, 
+  scoreRight, 
+  scoreWrong, 
+  previousCorrectAnswer
+}) => {
 
   return(
       <Container style={alignCenter}>
