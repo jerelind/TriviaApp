@@ -10,7 +10,7 @@ const HomeScreen = ({newQuestion}) => {
             <Title/>
             <div style={homeScreenAlign}>
                 <p id="welcome">Welcome to Trivialz.</p>
-                <Togglable buttonLabel="Score system">
+                <Togglable buttonLabel="Points">
                     <InfoScreen />
                 </Togglable>
                 <div>
@@ -31,13 +31,5 @@ const genQButtonStyle = {
     textAlign: "center",
     fontFamily: "Anton"
 }
-
-const tableStyle = {
-    width: "50%",
-    textAlign: "center",
-    marginLeft: "auto",
-    marginRight: "auto"
-}
-
 
 export default HomeScreen

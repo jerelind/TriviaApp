@@ -166,7 +166,7 @@ class App extends React.Component {
   // ehdollinen renderöinti 
   render() {
 
-    if(this.state.answerCounter === 10 && this.state.rightAnswers === 10) {
+    if(this.state.points >= 50 && this.state.wrongStreak === 3) {
       return(
         <EndScreen 
         reset={this.reset} 
@@ -180,7 +180,7 @@ class App extends React.Component {
       )
     }
 
-    if(this.state.answerCounter === 10 && this.state.points > 20 && this.state.rightAnswers !== 10) {
+    if(this.state.points >= 30 && this.state.wrongStreak === 3) {
       return(
         <EndScreen 
         reset={this.reset} 
@@ -194,7 +194,7 @@ class App extends React.Component {
       )
     }
 
-    if(this.state.answerCounter === 10 && this.state.points > 10 && this.state.rightAnswers !== 10) {
+    if(this.state.points >= 20 && this.state.wrongStreak === 3) {
       return(
         <EndScreen 
         reset={this.reset} 
@@ -208,7 +208,7 @@ class App extends React.Component {
       )
     }
 
-    if(this.state.answerCounter === 10 && this.state.points > 0) {
+    if(this.state.points >= 0 && this.state.wrongStreak === 3) {
       return(
         <EndScreen 
         reset={this.reset} 
@@ -222,14 +222,14 @@ class App extends React.Component {
       )
     }
 
-    if(this.state.wrongStreak === 3) {
+    if(this.state.points < 0 && this.state.wrongStreak === 3) {
       return(
         <EndScreen 
         reset={this.reset} 
         scoreRight={this.state.rightAnswers} 
         scoreWrong={this.state.wrongAnswers}
         score={this.state.points}
-        endText="You had three (3) wrong answers in a row."
+        endText="You had three (3) wrong answers in a row with negative score."
         iconColor="black"
         iconName="thumbs down"
         />
@@ -293,6 +293,7 @@ class App extends React.Component {
         previousCorrectAnswer={this.state.previousCorrectAnswer}
         difficulty={this.state.difficulty}
         score={this.state.points}
+        rightStreak={this.state.rightStreak}
         />
       )
     }

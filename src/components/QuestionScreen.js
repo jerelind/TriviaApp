@@ -11,8 +11,19 @@ const QuestionScreen = ({
   checkAnswer, 
   previousCorrectAnswer,
   difficulty,
-  score
+  score,
+  rightStreak
 }) => {
+
+  let streakOn = null
+
+  if(rightStreak >= 3) {
+    streakOn = true
+  } else {
+    streakOn = false
+  }
+
+  console.log(streakOn)
 
   return(
       <Container style={alignCenter}>
@@ -29,6 +40,7 @@ const QuestionScreen = ({
         <div id="backToHomepage">
         <Button color="blue" size="medium" onClick={reset}>Reset</Button>
         <h2 id="score">{score} points</h2>
+        {streakOn === true ? <p>"You're on fire!"</p> : null}
         </div>
       </div>
       </Container>
