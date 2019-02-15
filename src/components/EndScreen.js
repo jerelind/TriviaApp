@@ -25,7 +25,7 @@ export default EndScreen
 
 const alignCenter = {
     textAlign: "center",
-    marginTop: "250px"
+    padding: "30px"
 }
 
 const genQButtonStyle = {
