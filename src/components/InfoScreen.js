@@ -31,7 +31,8 @@ const tableStyle = {
     width: "50%",
     textAlign: "center",
     marginLeft: "auto",
-    marginRight: "auto"
+    marginRight: "auto",
+    marginBottom: "5px"
 }
 
 export default InfoScreen

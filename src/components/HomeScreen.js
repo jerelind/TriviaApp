@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Button} from 'semantic-ui-react'
+import {Container, Button, Icon} from 'semantic-ui-react'
 import Title from '../components/Title'
 import InfoScreen from '../components/InfoScreen'
 import Togglable from '../components/Togglable'
@@ -9,7 +9,7 @@ const HomeScreen = ({newQuestion}) => {
         <Container>
             <Title/>
             <div style={homeScreenAlign}>
-                <p id="welcome">Welcome to Trivialz.</p>
+                <p id="welcome">Welcome to Trivialz. Get as many points as you can.</p>
                 <Togglable buttonLabel="Points">
                     <InfoScreen />
                 </Togglable>
