@@ -9,8 +9,6 @@ const QuestionScreen = ({
   questionOptions, 
   answerRight, 
   checkAnswer, 
-  scoreRight, 
-  scoreWrong, 
   previousCorrectAnswer,
   difficulty,
   score
@@ -30,7 +28,7 @@ const QuestionScreen = ({
         </div>
         <div id="backToHomepage">
         <Button color="blue" size="medium" onClick={reset}>Reset</Button>
-        <h2 id="score">Score: {score}</h2>
+        <h2 id="score">{score} points</h2>
         </div>
       </div>
       </Container>

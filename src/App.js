@@ -21,6 +21,8 @@ class App extends React.Component {
       answerCounter: 0,
       rightAnswers: 0,
       wrongAnswers: 0,
+      wrongStreak: 0,
+      rightStreak: 0,
       sessionToken: null
     }
   }
@@ -57,6 +59,7 @@ class App extends React.Component {
         questionOptions[i] = questionOptions[j]
         questionOptions[j] = temp
       }
+      console.log(correctAnswer)
       this.setState({
         question: question,
         answer: answer,
@@ -80,7 +83,9 @@ class App extends React.Component {
       rightAnswers: 0,
       wrongAnswers: 0,
       answerCounter: 0,
-      points: 0
+      points: 0,
+      wrongStreak: 0,
+      rightStreak: 0
     })
   }
 
@@ -92,7 +97,9 @@ class App extends React.Component {
           answerRight: true,
           rightAnswers: this.state.rightAnswers + 1,
           points: this.state.points + 1,
-          answerCounter: this.state.answerCounter + 1
+          answerCounter: this.state.answerCounter + 1,
+          rightStreak: this.state.rightStreak + 1,
+          wrongStreak: 0
         })
         break;
         case "medium":
@@ -100,7 +107,9 @@ class App extends React.Component {
           answerRight: true,
           rightAnswers: this.state.rightAnswers + 1,
           points: this.state.points + 3,
-          answerCounter: this.state.answerCounter + 1
+          answerCounter: this.state.answerCounter + 1,
+          rightStreak: this.state.rightStreak + 1,
+          wrongStreak: 0
         })
         break;
         case "hard":
@@ -108,7 +117,9 @@ class App extends React.Component {
           answerRight: true,
           rightAnswers: this.state.rightAnswers + 1,
           points: this.state.points + 5,
-          answerCounter: this.state.answerCounter + 1
+          answerCounter: this.state.answerCounter + 1,
+          rightStreak: this.state.rightStreak + 1,
+          wrongStreak: 0
         })
         break;
       }
@@ -121,7 +132,9 @@ class App extends React.Component {
           previousCorrectAnswer: this.state.answer,
           wrongAnswers: this.state.wrongAnswers + 1,
           points: this.state.points - 2,
-          answerCounter: this.state.answerCounter + 1
+          answerCounter: this.state.answerCounter + 1,
+          wrongStreak: this.state.wrongStreak + 1,
+          rightStreak: 0
         })
         break;
         case "medium":
@@ -130,7 +143,9 @@ class App extends React.Component {
           previousCorrectAnswer: this.state.answer,
           wrongAnswers: this.state.wrongAnswers + 1,
           points: this.state.points - 1,
-          answerCounter: this.state.answerCounter + 1
+          answerCounter: this.state.answerCounter + 1,
+          wrongStreak: this.state.wrongStreak + 1,
+          rightStreak: 0
         })
         break;
         case "hard":
@@ -138,7 +153,9 @@ class App extends React.Component {
           answerRight: false,
           previousCorrectAnswer: this.state.answer,
           wrongAnswers: this.state.wrongAnswers + 1,
-          answerCounter: this.state.answerCounter + 1
+          answerCounter: this.state.answerCounter + 1,
+          wrongStreak: this.state.wrongStreak + 1,
+          rightStreak: 0
         })
         break;
       }
@@ -149,21 +166,7 @@ class App extends React.Component {
   // ehdollinen renderöinti 
   render() {
 
-    if(this.state.answerCounter === 10 && this.state.rightAnswers > this.state.wrongAnswers) {
-      return(
-        <EndScreen 
-        reset={this.reset} 
-        scoreRight={this.state.rightAnswers} 
-        scoreWrong={this.state.wrongAnswers} 
-        score={this.state.points}
-        endText="GG WP!"
-        iconColor="#6B4C24"
-        iconName="trophy"
-        />
-      )
-    }
-
-    if(this.state.answerCounter === 10 && this.state.wrongAnswers === 0) {
+    if(this.state.answerCounter === 10 && this.state.rightAnswers === 10) {
       return(
         <EndScreen 
         reset={this.reset} 
@@ -171,27 +174,13 @@ class App extends React.Component {
         scoreWrong={this.state.wrongAnswers} 
         score={this.state.points}
         endText="YOU ARE THE LEGENDARY GRANDMASTER"
-        iconColor="#DFB960"
+        iconColor="yellow"
         iconName="trophy"
         />
       )
     }
 
-    if(this.state.answerCounter === 10 && this.state.rightAnswers > this.state.wrongAnswers && this.state.points > 10 && this.state.rightAnswers !== 10) {
-      return(
-        <EndScreen 
-        reset={this.reset} 
-        scoreRight={this.state.rightAnswers} 
-        scoreWrong={this.state.wrongAnswers} 
-        score={this.state.points}
-        endText="You are a great mind!"
-        iconColor="#BCBABD"
-        iconName="trophy"
-        />
-      )
-    }
-
-    if(this.state.answerCounter === 10 && this.state.rightAnswers > this.state.wrongAnswers && this.state.points > 20 && this.state.rightanswers !== 10) {
+    if(this.state.answerCounter === 10 && this.state.points > 20 && this.state.rightAnswers !== 10) {
       return(
         <EndScreen 
         reset={this.reset} 
@@ -199,20 +188,48 @@ class App extends React.Component {
         scoreWrong={this.state.wrongAnswers} 
         score={this.state.points}
         endText="200IQ gameplay!"
-        iconColor="#479561"
+        iconColor="grey"
         iconName="trophy"
         />
       )
     }
 
-    if(this.state.answerCounter === 10 && this.state.wrongAnswers > this.state.rightAnswers) {
+    if(this.state.answerCounter === 10 && this.state.points > 10 && this.state.rightAnswers !== 10) {
+      return(
+        <EndScreen 
+        reset={this.reset} 
+        scoreRight={this.state.rightAnswers} 
+        scoreWrong={this.state.wrongAnswers} 
+        score={this.state.points}
+        endText="You are a great mind!"
+        iconColor="brown"
+        iconName="trophy"
+        />
+      )
+    }
+
+    if(this.state.answerCounter === 10 && this.state.points > 0) {
+      return(
+        <EndScreen 
+        reset={this.reset} 
+        scoreRight={this.state.rightAnswers} 
+        scoreWrong={this.state.wrongAnswers} 
+        score={this.state.points}
+        endText="GG WP!"
+        iconColor="violet"
+        iconName="trophy"
+        />
+      )
+    }
+
+    if(this.state.wrongStreak === 3) {
       return(
         <EndScreen 
         reset={this.reset} 
         scoreRight={this.state.rightAnswers} 
         scoreWrong={this.state.wrongAnswers}
         score={this.state.points}
-        endText="You had more wrong than right answers."
+        endText="You had three (3) wrong answers in a row."
         iconColor="black"
         iconName="thumbs down"
         />
