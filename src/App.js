@@ -249,31 +249,31 @@ class App extends React.Component {
       //asetetaan categoryNamen arvo API:n datan kategorian (this.state.category) mukaan
       switch(true) {
         case this.state.category.startsWith("Any") || this.state.category.startsWith("General"):
-          categoryName = <Icon size="huge" color="black" name="question"/>
+          categoryName = <Icon size="big" color="black" name="question"/>
           break;
         case this.state.category.startsWith("Geography"):
-          categoryName = <Icon size="huge" color="blue" name="world"/>
+          categoryName = <Icon size="big" color="blue" name="world"/>
           break;
         case this.state.category.startsWith("History"):
-          categoryName = <Icon size="huge" color="yellow" name="hourglass end"/>
+          categoryName = <Icon size="big" color="yellow" name="hourglass end"/>
           break;
         case this.state.category.startsWith("Science") || this.state.category.startsWith("Animals"):
-          categoryName = <Icon size="huge" color="green" name="tree"/>
+          categoryName = <Icon size="big" color="green" name="tree"/>
           break;
         case this.state.category.startsWith("Entertainment: Video Games"):
-          categoryName = <Icon size="huge" color="purple" name="gamepad"/>
+          categoryName = <Icon size="big" color="purple" name="gamepad"/>
           break;
         case this.state.category.startsWith("Entertainment: Television") || this.state.category.startsWith("Entertainment: Film"):
-          categoryName = <Icon size="huge" color="pink" name="tv"/>
+          categoryName = <Icon size="big" color="pink" name="tv"/>
           break;
         case this.state.category.startsWith("Art") || this.state.category.startsWith("Mythology") || this.state.category.startsWith("Politics") || this.state.category.startsWith("Entertainment: Books") || this.state.category.startsWith("Entertainment: Comics") || this.state.category.startsWith("Entertainment: Japanese Anime & Manga"):
-          categoryName = <Icon size="huge" color="brown" name="book"/>
+          categoryName = <Icon size="big" color="brown" name="book"/>
           break;
         case this.state.category.startsWith("Sports") || this.state.category.startsWith("Vehicles"):
-          categoryName = <Icon size="huge" color="orange" name="soccer"/>
+          categoryName = <Icon size="big" color="orange" name="soccer"/>
           break;
         case this.state.category.startsWith("Entertainment") || this.state.category.startsWith("Celebrities"):
-          categoryName = <Icon size="huge" color="pink" name="music"/>
+          categoryName = <Icon size="big" color="pink" name="music"/>
           break;
       }
 
