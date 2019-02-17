@@ -1,15 +1,12 @@
 import React from 'react'
-import {Container, Button, Icon} from 'semantic-ui-react'
-import Notification from '../components/Notification'
+import {Container, Button} from 'semantic-ui-react'
 
 const QuestionScreen = ({
   question, 
   reset, 
   categoryName, 
   questionOptions, 
-  answerRight, 
   checkAnswer, 
-  previousCorrectAnswer,
   difficulty,
   score,
   rightStreak
@@ -23,16 +20,11 @@ const QuestionScreen = ({
     streakOn = false
   }
 
-  console.log(streakOn)
-
   return(
       <Container style={alignCenter}>
-      <div>
-      {answerRight === true ? <Notification notification={<Icon size="big" color="green" name="check"/>}/> : null}
-      {answerRight === false ? <Notification notification={<Icon size="big" color="red" name="remove"/>} text={`Correct answer was "${previousCorrectAnswer}"`}/> : null}
-      </div>
       <div id="questionScreen">
-        <div><p>{categoryName} Difficulty: {difficulty}</p></div>
+        <div style={difficultyStyle}><p>Difficulty: {difficulty}</p></div>
+        <div><p>{categoryName}</p></div>
         <h1 id="questionHeader">{question}</h1>
         <div id="answerButtons">
         {questionOptions.map(option => <Button key={option} id="answerButton" color="brown" value={option} onClick={checkAnswer}>{option}</Button>)}
@@ -40,7 +32,6 @@ const QuestionScreen = ({
         <div id="backToHomepage">
         <Button color="blue" size="medium" onClick={reset}>Reset</Button>
         <h2 id="score">{score} points</h2>
-        {streakOn === true ? <p>"You're on fire!"</p> : null}
         </div>
       </div>
       </Container>
@@ -48,7 +39,11 @@ const QuestionScreen = ({
 }
 
 const alignCenter = {
-    textAlign: "center"
+  textAlign: "center"
+}
+
+const difficultyStyle = {
+  marginBottom: "5px"
 }
 
 export default QuestionScreen

@@ -4,6 +4,7 @@ import QuestionScreen from './components/QuestionScreen'
 import {Icon} from 'semantic-ui-react'
 import axios from 'axios'
 import EndScreen from './components/EndScreen'
+import CorrectScreen from './components/CorrectScreen'
 
 class App extends React.Component {
   constructor(props) {
@@ -26,8 +27,7 @@ class App extends React.Component {
       sessionToken: null
     }
   }
-  
-  //haetaan sessionToken APIsta - token varmistaa, ettei samaa kysymystä kysytä toista kertaa
+  //fetch sessionToken from API - token ensures that duplicate questions won't occur
   componentDidMount() {
     axios.get("https://opentdb.com/api_token.php?command=request")
       .then((response) => {
@@ -40,18 +40,18 @@ class App extends React.Component {
       })   
   }
   
-  // haetaan kysymys open trivia DB -APIsta ja asetetaan arvot stateen
+  //fetch question data from API and set data to state
   newQuestion = () => {
     axios.get(`https://opentdb.com/api.php?amount=1&type=multiple&token=${this.state.sessionToken}`)
     .then((response) => {
-      
+
       let question = response.data.results[0].question.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é")
       let answer = response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é")
       let category = response.data.results[0].category
       let questionOptions = [response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é"), response.data.results[0].incorrect_answers[0].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é"), response.data.results[0].incorrect_answers[1].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é"), response.data.results[0].incorrect_answers[2].replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é")]
       let correctAnswer = response.data.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&pi;/g, "3.14").replace(/&amp;/g, "&").replace(/&ouml;/g, "ö").replace(/&eacute;/g, "é")
       let difficulty = response.data.results[0].difficulty
-
+      console.log(correctAnswer)
       //shuffle questionOptions
       for (let i = questionOptions.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1))
@@ -59,7 +59,6 @@ class App extends React.Component {
         questionOptions[i] = questionOptions[j]
         questionOptions[j] = temp
       }
-      console.log(correctAnswer)
       this.setState({
         question: question,
         answer: answer,
@@ -92,6 +91,8 @@ class App extends React.Component {
   check = (event) => {
     if(this.state.answer === event.target.value) {
       switch(this.state.difficulty) {
+        default:
+        break;
         case "easy":
         this.setState({
           answerRight: true,
@@ -123,9 +124,16 @@ class App extends React.Component {
         })
         break;
       }
+      setTimeout(() => {
+        this.setState({
+          answerRight: null
+        })
+      }, 2000)
       this.newQuestion()
     } else {
       switch(this.state.difficulty) {
+        default:
+        break;
         case "easy":
         this.setState({
           answerRight: false,
@@ -159,11 +167,16 @@ class App extends React.Component {
         })
         break;
       }
+      setTimeout(() => {
+        this.setState({
+          answerRight: null
+        })
+      }, 2000)
       this.newQuestion()
     }
   }
 
-  // ehdollinen renderöinti 
+  // conditional rendering
   render() {
 
     if(this.state.points >= 50 && this.state.wrongStreak === 3) {
@@ -246,8 +259,10 @@ class App extends React.Component {
         let categoryName = null
         console.log(this.state.category)
 
-      //asetetaan categoryNamen arvo API:n datan kategorian (this.state.category) mukaan
+      //set categoryName value according to API data (this.state.category)
       switch(true) {
+        default:
+        break;
         case this.state.category.startsWith("Any") || this.state.category.startsWith("General"):
           categoryName = <Icon size="big" color="black" name="question"/>
           break;
@@ -277,22 +292,33 @@ class App extends React.Component {
           break;
       }
 
-      return(
-        <QuestionScreen 
-        question={this.state.question}
-        reset={this.reset}
-        categoryName={categoryName}
-        questionOptions={this.state.questionOptions}
-        answerRight={this.state.answerRight}
-        checkAnswer={this.check}
-        scoreRight={this.state.rightAnswers}
-        scoreWrong={this.state.wrongAnswers}
-        previousCorrectAnswer={this.state.previousCorrectAnswer}
-        difficulty={this.state.difficulty}
-        score={this.state.points}
-        rightStreak={this.state.rightStreak}
+      if(this.state.answerRight !== null) {
+        return(
+        <CorrectScreen 
+          answerRight={this.state.answerRight} 
+          previousCorrectAnswer={this.state.previousCorrectAnswer}
+          rightStreak={this.state.rightStreak}
+          difficulty={this.state.difficulty}
         />
-      )
+        )
+      } else {
+        return(
+          <QuestionScreen 
+          question={this.state.question}
+          reset={this.reset}
+          categoryName={categoryName}
+          questionOptions={this.state.questionOptions}
+          answerRight={this.state.answerRight}
+          checkAnswer={this.check}
+          scoreRight={this.state.rightAnswers}
+          scoreWrong={this.state.wrongAnswers}
+          previousCorrectAnswer={this.state.previousCorrectAnswer}
+          difficulty={this.state.difficulty}
+          score={this.state.points}
+          rightStreak={this.state.rightStreak}
+          />
+        )
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Button, Icon} from 'semantic-ui-react'
+import {Container, Button} from 'semantic-ui-react'
 import Title from '../components/Title'
 import InfoScreen from '../components/InfoScreen'
 import Togglable from '../components/Togglable'
