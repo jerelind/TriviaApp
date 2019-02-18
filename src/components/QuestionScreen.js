@@ -9,16 +9,7 @@ const QuestionScreen = ({
   checkAnswer, 
   difficulty,
   score,
-  rightStreak
 }) => {
-
-  let streakOn = null
-
-  if(rightStreak >= 3) {
-    streakOn = true
-  } else {
-    streakOn = false
-  }
 
   return(
       <Container style={alignCenter}>

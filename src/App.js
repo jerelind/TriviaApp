@@ -91,8 +91,6 @@ class App extends React.Component {
   check = (event) => {
     if(this.state.answer === event.target.value) {
       switch(this.state.difficulty) {
-        default:
-        break;
         case "easy":
         this.setState({
           answerRight: true,
@@ -132,8 +130,6 @@ class App extends React.Component {
       this.newQuestion()
     } else {
       switch(this.state.difficulty) {
-        default:
-        break;
         case "easy":
         this.setState({
           answerRight: false,
@@ -315,7 +311,6 @@ class App extends React.Component {
           previousCorrectAnswer={this.state.previousCorrectAnswer}
           difficulty={this.state.difficulty}
           score={this.state.points}
-          rightStreak={this.state.rightStreak}
           />
         )
       }

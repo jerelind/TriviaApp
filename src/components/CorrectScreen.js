@@ -2,22 +2,20 @@ import React from 'react'
 import Notification from '../components/Notification'
 import {Icon, Container} from 'semantic-ui-react'
 
-const CorrectScreen = ({answerRight, previousCorrectAnswer, rightStreak, difficulty}) => {
+const CorrectScreen = ({answerRight, previousCorrectAnswer, rightStreak}) => {
     let streakOn = null
-    let points = null
+    let massiveStreak = null
 
-    if(rightStreak >= 3) {
+    if(rightStreak === 3) {
       streakOn = true
     } else {
       streakOn = false
     }
 
-    if(difficulty === "easy" && answerRight) {
-        points = 1
-    } else if(difficulty === "medium" && answerRight) {
-        points = 2
-    } else if(difficulty === "hard" && answerRight) {
-        points = 3
+    if(rightStreak > 3) {
+      massiveStreak = true
+    } else {
+      massiveStreak = false
     }
 
     return(
@@ -35,7 +33,7 @@ const CorrectScreen = ({answerRight, previousCorrectAnswer, rightStreak, difficu
             </div>
             <div>
                 {streakOn === true ? <p>You're on fire!</p> : null}
-                <p>You got {points} points!</p>
+                {massiveStreak === true ? <p>Unbelievable knowledge!</p> : null}
             </div>
         </div>
         </Container>
